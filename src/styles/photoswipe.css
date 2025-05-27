@@ -1,8 +1,9 @@
 .pswp__button {
-    @apply transition bg-black/40 hover:bg-black/50 active:bg-black/60 flex items-center justify-center mr-0 w-12 h-12 !important;
+    @apply transition bg-black/50 hover:bg-black/60 active:bg-black/70 flex items-center justify-center mr-0 w-12 h-12 !important;
+    /* Slightly increased opacity for better visibility on various backgrounds */
 }
 .pswp__button--zoom, .pswp__button--close {
-    @apply mt-4 rounded-xl active:scale-90 !important;
+    @apply mt-4 rounded-[var(--radius-medium)] active:scale-90 !important; /* Use radius variable */
 }
 .pswp__button--zoom {
     @apply mr-2.5 !important;

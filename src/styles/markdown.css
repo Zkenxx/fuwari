@@ -1,6 +1,7 @@
-.custom-md {
+.custom-md { /* 这个类名现在也用于 .novel-content 的父级或自身 */
     h1 {
-        @apply text-3xl;
+        /* 样式已在 main.css.txt @layer base .novel-content h1 中定义 */
+        /* @apply text-3xl; */ /* 移除，由 base 层控制 */
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -20,18 +21,20 @@
     }
 
     a:not(.no-styling) {
-        @apply relative bg-none link font-medium text-[var(--primary)]
-        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
+        /* @apply relative bg-none link font-medium text-[var(--primary)]
+        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4; */
+        /* 调整为更简洁的链接样式 */
+        @apply text-[var(--primary)] no-underline hover:underline decoration-1 underline-offset-2;
+        font-weight: normal; /* 非特别强调的链接，正常字重 */
 
         &:hover, &:active {
-            @apply decoration-transparent;
+            /* @apply decoration-transparent; */ /* hover时颜色已通过 hover:underline 和 decoration-[var(--primary)] 控制 */
         }
     }
 
-    code {
-        @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
-
-        font-family: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    code { /* 行内代码 */
+        @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1.5 py-0.5 rounded-md overflow-hidden text-sm;
+        font-family: 'JetBrains Mono Variable', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; /* 保持代码字体 */
         &:before {
             content:none;
         }
@@ -39,7 +42,8 @@
             content:none;
         }
 
-        counter-reset: line;
+        /* 行号相关样式，如果行内代码不需要行号，可以移除 */
+        /* counter-reset: line;
         span.line {
             &:before {
                 @apply text-white/25 mr-4 w-4 inline-block;
@@ -50,15 +54,17 @@
             &:last-child:empty, &:last-child:has(> span:empty:only-child) {
                 display: none;
             }
-        }
+        } */
     }
 
-    pre {
+    pre { /* 代码块 */
         @apply bg-[var(--codeblock-bg)] !important;
-        @apply rounded-xl px-5;
+        @apply rounded-lg px-5 py-4 my-6; /* 增加上下 padding，圆角调整 */
+        overflow-x: auto;
 
         code {
-            @apply bg-transparent text-inherit text-sm p-0;
+            @apply bg-transparent text-inherit text-sm p-0; /* 代码块内的 code 标签 */
+            font-family: 'JetBrains Mono Variable', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; /* 确保代码字体 */
 
             ::selection {
                 @apply bg-[var(--codeblock-selection)];
@@ -67,23 +73,34 @@
     }
 
     ul, ol {
-        li::marker {
-            @apply text-[var(--primary)];
+        @apply my-4 pl-6; /* 列表外边距和左内边距 */
+        li {
+            @apply my-1;
+            &::marker {
+                @apply text-[var(--primary)];
+            }
         }
     }
 
     blockquote {
-        @apply not-italic border-transparent relative;
-        font-weight: inherit;
+        @apply not-italic border-transparent relative text-sm sm:text-base;
+        @apply border-l-2 border-[var(--primary)]/70 pl-4 pr-2 py-2 my-5; /* 调整边框、padding、margin */
+        color: var(--text-color-quote); /* 引用文字颜色 */
+        background-color: var(--blockquote-bg); /* 引用背景色 */
+        border-radius: var(--radius-small); /* 引用块圆角 */
 
         &:before {
-            @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full;
+            /* @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full; */
+            content: none; /* 移除原有的竖线伪元素，使用 border-l 代替 */
         }
 
-        /* Remove the double quotes from default styles */
-        p:before, p:after {
-            @apply content-none;
+        p { /* 引用块内的段落 */
+            @apply my-1 leading-relaxed;
+            text-indent: 0; /* 引用内段落通常不缩进 */
+            letter-spacing: 0.03em;
+            &:before, &:after {
+                @apply content-none; /* 移除默认的引号 */
+            }
         }
-
     }
 }

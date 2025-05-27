@@ -3,22 +3,22 @@
     pointer-events: unset;
 
     &.os-scrollbar-horizontal {
-        @apply py-1 px-2 h-4;
+        @apply py-1 px-2 h-3.5; /* Slightly thinner */
         .os-scrollbar-track .os-scrollbar-handle {
             @apply rounded-full h-1;
         }
         &:hover .os-scrollbar-track .os-scrollbar-handle {
-            @apply h-2;
+            @apply h-1.5; /* Hover effect slightly less pronounced */
         }
     }
 
     &.os-scrollbar-vertical {
-        @apply px-1 py-1 w-4;
+        @apply px-1 py-1 w-3.5; /* Slightly thinner */
         .os-scrollbar-track .os-scrollbar-handle {
             @apply rounded-full w-1;
         }
         &:hover .os-scrollbar-track .os-scrollbar-handle {
-            @apply w-2;
+            @apply w-1.5; /* Hover effect slightly less pronounced */
         }
     }
 }
@@ -29,7 +29,7 @@
         --os-handle-bg-hover: var(--scrollbar-bg-hover);
         --os-handle-bg-active: var(--scrollbar-bg-active);
     }
-    &.scrollbar-dark {
+    &.scrollbar-dark { /* These specific classes might be redundant if --scrollbar-bg adapts to light/dark */
         --os-handle-bg: var(--scrollbar-bg-dark);
         --os-handle-bg-hover: var(--scrollbar-bg-hover-dark);
         --os-handle-bg-active: var(--scrollbar-bg-active-dark);
